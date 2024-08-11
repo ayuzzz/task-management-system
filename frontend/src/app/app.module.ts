@@ -5,6 +5,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,10 +15,18 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
-import { ProjectsPageprojectsListComponent } from './components/projects-page/projects-pageprojects-list/projects-pageprojects-list.component';
+import { ProjectsListComponent } from './components/projects-page/projects-pageprojects-list/projects-pageprojects-list.component';
+import { ProjectsPageComponent } from './components/projects-page/projects-page.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, DashboardComponent, ProfilePageComponent, ProjectsPageprojectsListComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    DashboardComponent,
+    ProfilePageComponent,
+    ProjectsPageComponent,
+    ProjectsListComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -27,6 +36,7 @@ import { ProjectsPageprojectsListComponent } from './components/projects-page/pr
     MatSidenavModule,
     MatListModule,
     RouterModule.forRoot(appRoutes),
+    MatCardModule,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

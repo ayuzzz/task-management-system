@@ -3,8 +3,8 @@ export interface Task {
   title: string;
   description: string;
   dueDate: string;
-  priority: number;
-  status: number;
-  project: number;
-  profile: number;
+  priorityId: number;
+  statusId: number;
+  projectId: number;
+  userId: number;
 }
