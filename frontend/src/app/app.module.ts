@@ -14,9 +14,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
+import { ProjectsPageprojectsListComponent } from './components/projects-page/projects-pageprojects-list/projects-pageprojects-list.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, DashboardComponent, ProfilePageComponent],
+  declarations: [AppComponent, NavbarComponent, DashboardComponent, ProfilePageComponent, ProjectsPageprojectsListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
