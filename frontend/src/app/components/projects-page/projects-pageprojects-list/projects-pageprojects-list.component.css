@@ -1,16 +1,5 @@
-.horizontal-card-container {
-  display: flex;
-  flex-direction: row;
-  margin: 16px;
-  overflow-x: auto; /* Optional: Enables horizontal scrolling if the content overflows */
-}
-
-.horizontal-card {
-  width: 100%;
-  margin-top: 5px;
-}
-
-.card-content {
-  display: flex;
-  align-items: center;
+.projects-list
+{
+  margin: 20px;
+  margin-top: 0;
 }

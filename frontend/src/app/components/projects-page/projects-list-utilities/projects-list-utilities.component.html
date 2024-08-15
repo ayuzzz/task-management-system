@@ -1,0 +1,14 @@
+<div fxlayout="row" fxLayoutAlign="center center" fxLayoutGap="16px">
+  <div fxFlex="10" class="project-list-utilities">
+    <button mat-button>
+      <mat-icon>add</mat-icon>
+      Add Project
+    </button>
+  </div>
+  <div fxFlex="90" class="project-list-utilities">
+    <mat-form-field appearance="fill">
+      <mat-label>Filter by name or description</mat-label>
+      <input matInput [(ngModel)]="filterString" (ngModelChange)="filterProjects()">
+    </mat-form-field>
+  </div>
+</div>

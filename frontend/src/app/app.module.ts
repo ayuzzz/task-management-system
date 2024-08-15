@@ -6,6 +6,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +23,8 @@ import { appRoutes } from './app.routes';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import { ProjectsListComponent } from './components/projects-page/projects-pageprojects-list/projects-pageprojects-list.component';
 import { ProjectsPageComponent } from './components/projects-page/projects-page.component';
+import { ProjectsListUtilitiesComponent } from './components/projects-page/projects-list-utilities/projects-list-utilities.component';
+import { StatusPipe } from './pipes/status.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +34,8 @@ import { ProjectsPageComponent } from './components/projects-page/projects-page.
     ProfilePageComponent,
     ProjectsPageComponent,
     ProjectsListComponent,
+    ProjectsListUtilitiesComponent,
+    StatusPipe,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +47,12 @@ import { ProjectsPageComponent } from './components/projects-page/projects-page.
     MatListModule,
     RouterModule.forRoot(appRoutes),
     MatCardModule,
+    MatTableModule,
+    MatSortModule,
+    FlexLayoutModule,
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
