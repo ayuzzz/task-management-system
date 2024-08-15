@@ -12,6 +12,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,7 +25,6 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
 import { ProjectsListComponent } from './components/projects-page/projects-pageprojects-list/projects-pageprojects-list.component';
 import { ProjectsPageComponent } from './components/projects-page/projects-page.component';
 import { ProjectsListUtilitiesComponent } from './components/projects-page/projects-list-utilities/projects-list-utilities.component';
-import { StatusPipe } from './pipes/status.pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,6 @@ import { StatusPipe } from './pipes/status.pipe';
     ProjectsPageComponent,
     ProjectsListComponent,
     ProjectsListUtilitiesComponent,
-    StatusPipe,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +52,7 @@ import { StatusPipe } from './pipes/status.pipe';
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
+    MatProgressBarModule,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

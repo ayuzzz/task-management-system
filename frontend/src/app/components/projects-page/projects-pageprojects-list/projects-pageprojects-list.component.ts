@@ -1,3 +1,4 @@
+import { ProjectList } from './../../../models/project';
 import {
   Component,
   Input,
@@ -6,7 +7,6 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { Project } from '../../../models/project';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Status } from '../../../models/status';
@@ -19,15 +19,24 @@ import { status_data } from '../../../../data/status-priority-data';
 })
 export class ProjectsListComponent implements OnInit, OnChanges {
   @Input()
-  projects: Project[] = [];
+  projects: ProjectList[] = [];
 
   @Input()
   filterString: string = '';
 
   statuses: Status[] = [];
-  filteredProjects: Project[] = [];
-  displayedColumns: string[] = ['name', 'description', 'dueDate', 'status'];
-  dataSource: MatTableDataSource<Project> = new MatTableDataSource<Project>([]);
+  filteredProjects: ProjectList[] = [];
+  displayedColumns: string[] = [
+    'name',
+    'description',
+    'dueDate',
+    'status',
+    'teamMembers',
+    'Progress',
+  ];
+  dataSource: MatTableDataSource<ProjectList> =
+    new MatTableDataSource<ProjectList>([]);
+
   @ViewChild(MatSort) sortBy!: MatSort;
 
   ngOnInit(): void {
@@ -47,7 +56,7 @@ export class ProjectsListComponent implements OnInit, OnChanges {
     }
   }
 
-  filterProjects(): Project[] {
+  filterProjects(): ProjectList[] {
     return this.projects.filter(
       (project) =>
         project.name
