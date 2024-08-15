@@ -67,4 +67,10 @@ export class ProjectsListComponent implements OnInit, OnChanges {
           .includes(this.filterString.toLocaleUpperCase())
     );
   }
+  getInitials(name: string): string {
+    if (!name) return '';
+    const names = name.split(' ');
+    const initials = names.map((n) => n.charAt(0)).join('');
+    return initials.toUpperCase();
+  }
 }

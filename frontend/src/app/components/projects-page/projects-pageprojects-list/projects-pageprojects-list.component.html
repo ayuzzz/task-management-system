@@ -18,13 +18,21 @@
     </ng-container>
     <ng-container matColumnDef="teamMembers">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Team Members </th>
-      <td mat-cell *matCellDef="let project">{{project.teamMembers}}</td>
+      <td mat-cell *matCellDef="let project">
+        <div *ngFor="let member of project.teamMembers" class="user-bubble">
+          <span class="user-initials">{{this.getInitials(member) }}</span>
+        </div>
+      </td>
     </ng-container>
     <ng-container matColumnDef="Progress">
       <th mat-header-cell *matHeaderCellDef> Progress </th>
-      <td mat-cell *matCellDef="let project"><mat-progress-bar [value]="project.progress*100" color="primary"
-          mode="determinate">
-        </mat-progress-bar></td>
+      <td mat-cell *matCellDef="let project">
+        <span>{{(project.progress*100).toFixed(2)}}%</span>
+        <mat-progress-bar *ngIf="project.progress >= 0.6" [value]="project.progress*100" color="primary"
+          mode="determinate"></mat-progress-bar>
+        <mat-progress-bar *ngIf="project.progress < 0.6" [value]="project.progress*100" color="warn"
+          mode="determinate"></mat-progress-bar>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="this.displayedColumns"></tr>
