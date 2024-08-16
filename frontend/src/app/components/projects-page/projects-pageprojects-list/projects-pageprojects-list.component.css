@@ -20,3 +20,9 @@
   line-height: 40px; /* Vertically center the text */
   margin: 0 5px;
 }
+
+.actions-column{
+
+  text-align: center;
+  width: min-content;
+}

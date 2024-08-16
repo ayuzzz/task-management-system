@@ -33,6 +33,7 @@ export class ProjectsListComponent implements OnInit, OnChanges {
     'status',
     'teamMembers',
     'Progress',
+    'actions',
   ];
   dataSource: MatTableDataSource<ProjectList> =
     new MatTableDataSource<ProjectList>([]);
@@ -72,5 +73,15 @@ export class ProjectsListComponent implements OnInit, OnChanges {
     const names = name.split(' ');
     const initials = names.map((n) => n.charAt(0)).join('');
     return initials.toUpperCase();
+  }
+
+  viewProject(_t99: any) {
+    throw new Error('Method not implemented.');
+  }
+  editProject(_t99: any) {
+    throw new Error('Method not implemented.');
+  }
+  archiveProject(_t99: any) {
+    throw new Error('Method not implemented.');
   }
 }
