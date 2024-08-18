@@ -11,6 +11,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Status } from '../../../models/status';
 import { status_data } from '../../../../data/status-priority-data';
+import { StatusPriorityTextHelper } from '../../../utilities/status-priority-text-helper';
 
 @Component({
   selector: 'projects-list',
@@ -83,5 +84,14 @@ export class ProjectsListComponent implements OnInit, OnChanges {
   }
   archiveProject(_t99: any) {
     throw new Error('Method not implemented.');
+  }
+
+  getTextColor(type: string, textValue: string): string {
+    if (type === 'status') {
+      console.log(StatusPriorityTextHelper.getStatusTextColor(textValue));
+      return StatusPriorityTextHelper.getStatusTextColor(textValue);
+    } else {
+      return StatusPriorityTextHelper.getPriorityTextColor(textValue);
+    }
   }
 }

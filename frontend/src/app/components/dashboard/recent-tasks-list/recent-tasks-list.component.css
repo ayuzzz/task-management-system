@@ -1,0 +1,11 @@
+.recent-tasks-list
+{
+  margin: 20px;
+  margin-top: 0;
+}
+
+.actions-column{
+
+  text-align: center;
+  width: min-content;
+}

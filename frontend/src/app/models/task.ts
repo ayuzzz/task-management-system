@@ -8,3 +8,12 @@ export interface Task {
   projectId: number;
   userId: number;
 }
+
+export interface RecentTask {
+  id: number;
+  title: string;
+  dueDate: string;
+  priority: string;
+  status: string;
+  project: string;
+}
