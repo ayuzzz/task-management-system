@@ -1,1 +1,25 @@
-<p>projects-page works!</p>
+<div fxlayout="row" fxLayoutAlign="center center" fxLayoutGap="16px">
+  <div fxFlex="25">
+    <mat-card>
+      <mat-card-content>
+        Total Projects : {{this.projects.length}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="25">
+    <mat-card>
+      <mat-card-content>
+        Active : {{this.activeProjectsCount}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="25">
+    <mat-card>
+      <mat-card-content>
+        Completed : {{this.completedProjectsCount}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<projects-list-utilities (filterStringChangeEvent)="filterProjects($event)"></projects-list-utilities>
+<projects-list [projects]=" this.projects" [filterString]="this.filterString"></projects-list>

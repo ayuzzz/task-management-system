@@ -1,0 +1,28 @@
+.projects-list
+{
+  margin: 20px;
+  margin-top: 0;
+}
+
+.user-bubble {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 12%; /* Adjust size */
+  height: 12%; /* Adjust size */
+  background-color: green; /* Background color */
+  color: #fff; /* Text color */
+  border-radius: 50%; /* Make it circular */
+  font-size: 16px; /* Font size for initials */
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 40px; /* Vertically center the text */
+  margin: 0 5px;
+}
+
+.actions-column{
+
+  text-align: center;
+  width: min-content;
+}

@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ProjectsPageComponent } from './components/projects-page/projects-page.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 
 export const appRoutes: Routes = [
@@ -10,7 +9,8 @@ export const appRoutes: Routes = [
   },
   {
     path: 'projects',
-    component: ProjectsPageComponent,
+    loadChildren: () =>
+      import('./modules/projects.module').then((m) => m.ProjectsModule),
   },
   {
     path: 'profile',
