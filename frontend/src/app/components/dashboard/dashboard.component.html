@@ -1,1 +1,44 @@
-<p>dashboard works!</p>
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16px" class="task-status-list">
+  <div fxFlex="25%">
+    <mat-card>
+      <mat-card-content>
+        Total Tasks : {{this.taskData.length}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="25%">
+    <mat-card>
+      <mat-card-content>
+        Completed : {{this.completedTasksCount}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="25%">
+    <mat-card>
+      <mat-card-content>
+        In Progress : {{this.inProgressTasksCount}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="25%">
+    <mat-card>
+      <mat-card-content>
+        Not Started : {{this.notStartedTasksCount}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" class="task-operation-list">
+  <div fxFlex="10%">
+    <button mat-button>
+      <mat-icon>add</mat-icon> Add Task
+    </button>
+  </div>
+  <div fxFlex="10%">
+    <button mat-button>
+      <mat-icon>list</mat-icon> View All Tasks
+    </button>
+  </div>
+</div>
+<recent-tasks-list></recent-tasks-list>

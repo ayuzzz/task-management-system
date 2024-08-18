@@ -1,0 +1,17 @@
+mat-card-content
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.task-status-list
+{
+  margin:10px;
+}
+
+.task-operation-list
+{
+  margin:10px;
+}

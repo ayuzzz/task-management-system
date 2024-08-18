@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 
 export const appRoutes: Routes = [
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    loadChildren: () =>
+      import('./modules/tasks.module').then((m) => m.TasksModule),
   },
   {
     path: 'projects',
