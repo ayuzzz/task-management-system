@@ -31,14 +31,19 @@
 
 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" class="task-operation-list">
   <div fxFlex="10%">
-    <button mat-button>
+    <button mat-button (click)="addNewTask()">
       <mat-icon>add</mat-icon> Add Task
     </button>
   </div>
-  <div fxFlex="10%">
-    <button mat-button>
+  <div *ngIf="!this.allTasksDisplayed" fxFlex="auto">
+    <button mat-button (click)="toggleAllTasksDisplayed()">
       <mat-icon>list</mat-icon> View All Tasks
     </button>
   </div>
+  <div *ngIf="this.allTasksDisplayed" fxFlex="auto">
+    <button mat-button (click)="toggleAllTasksDisplayed()">
+      <mat-icon>list</mat-icon> View Recent Tasks
+    </button>
+  </div>
 </div>
-<recent-tasks-list></recent-tasks-list>
+<tasks-list [tasks]="this.tasks"></tasks-list>

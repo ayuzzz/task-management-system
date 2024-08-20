@@ -9,7 +9,7 @@ export interface Task {
   userId: number;
 }
 
-export interface RecentTask {
+export interface MiniatureTask {
   id: number;
   title: string;
   dueDate: string;

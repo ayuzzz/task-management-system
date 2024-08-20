@@ -1,5 +1,5 @@
 <div class="recent-tasks-list">
-  <table mat-table [dataSource]="this.recentTasks" class="mat-elevation-z8">
+  <table mat-table [dataSource]="this.tasks" class="mat-elevation-z8">
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef> Title </th>
       <td mat-cell *matCellDef="let task">{{task.title}}</td>
