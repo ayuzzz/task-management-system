@@ -98,12 +98,12 @@ export class ProjectsListComponent implements OnInit, OnChanges {
     }
   }
 
-  openTaskStatusDialog() {
+  openTaskStatusDialog(projectId: number) {
     this.dialog.open(TaskStatusDialogComponent, {
       width: '400px',
       height: 'auto',
       data: {
-        projectId: 2,
+        projectId: projectId,
       },
     });
   }
