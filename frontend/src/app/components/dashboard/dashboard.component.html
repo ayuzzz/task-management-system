@@ -1,1 +1,49 @@
-<p>dashboard works!</p>
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16px" class="task-status-list">
+  <div fxFlex="25%">
+    <mat-card>
+      <mat-card-content>
+        Total Tasks : {{this.taskData.length}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="25%">
+    <mat-card>
+      <mat-card-content>
+        Completed : {{this.completedTasksCount}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="25%">
+    <mat-card>
+      <mat-card-content>
+        In Progress : {{this.inProgressTasksCount}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="25%">
+    <mat-card>
+      <mat-card-content>
+        Not Started : {{this.notStartedTasksCount}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" class="task-operation-list">
+  <div fxFlex="10%">
+    <button mat-raised-button (click)="addNewTask()">
+      <mat-icon>add</mat-icon> Add Task
+    </button>
+  </div>
+  <div *ngIf="!this.allTasksDisplayed" fxFlex="auto">
+    <button mat-raised-button mat-button (click)="toggleAllTasksDisplayed()">
+      <mat-icon>list</mat-icon> View All Tasks
+    </button>
+  </div>
+  <div *ngIf="this.allTasksDisplayed" fxFlex="auto">
+    <button mat-raised-button mat-button (click)="toggleAllTasksDisplayed()">
+      <mat-icon>list</mat-icon> View Recent Tasks
+    </button>
+  </div>
+</div>
+<tasks-list [tasks]="this.tasks"></tasks-list>
