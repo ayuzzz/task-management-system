@@ -1,4 +1,3 @@
-import { Status } from './status';
 export interface Project {
   id: number;
   name: string;

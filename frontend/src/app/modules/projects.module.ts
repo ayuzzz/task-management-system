@@ -6,12 +6,14 @@ import { ProjectsPageComponent } from '../components/projects-page/projects-page
 import { ProjectsListUtilitiesComponent } from '../components/projects-page/projects-list-utilities/projects-list-utilities.component';
 import { ProjectsListComponent } from '../components/projects-page/projects-pageprojects-list/projects-pageprojects-list.component';
 import { SharedModule } from './shared.module';
+import { TaskStatusDialogComponent } from '../components/projects-page/task-status-dialog/task-status-dialog.component';
 
 @NgModule({
   declarations: [
     ProjectsPageComponent,
     ProjectsListComponent,
     ProjectsListUtilitiesComponent,
+    TaskStatusDialogComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(projectRoutes), SharedModule],
 })

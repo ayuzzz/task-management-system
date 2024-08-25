@@ -10,8 +10,8 @@ export const projectRoutes: Routes = [
         component: ProjectsPageComponent,
       },
       // {
-      //   path: 'project-details/view/:id',
-      //   component: ProjectDetailsComponent,
+      //   path: 'add-edit-project/:projectId',
+      //   component: AddEditProjectComponent,
       // },
       // {
       //   path: 'project-details/edit/:id',
