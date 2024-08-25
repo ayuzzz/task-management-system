@@ -68,7 +68,7 @@
     </div>
   </div>
 
-  <div class="form-field" fxFlex="50%">
+  <!-- <div class="form-field" fxFlex="50%">
     <mat-form-field appearance="fill">
       <mat-label>Project</mat-label>
       <input matInput id="project" formControlName="project">
@@ -79,6 +79,17 @@
         <small *ngIf="this.taskForm.get('project')?.errors?.['maxlength']">Project must be at the most 20
           characters
           long.</small>
+      </mat-error>
+    </mat-form-field>
+  </div> -->
+  <div class="form-field" fxFlex="50%">
+    <mat-form-field appearance="fill">
+      <mat-label>Project</mat-label>
+      <mat-select [(ngModel)]="this.taskDetails.projectId" formControlName="project">
+        <mat-option *ngFor="let project of this.projectData" [value]="project.id">{{project.name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="this.taskForm.get('project')?.invalid && this.taskForm.get('project')?.touched">
+        <small *ngIf="this.taskForm.get('project')?.errors?.['required']">Project is required.</small>
       </mat-error>
     </mat-form-field>
   </div>

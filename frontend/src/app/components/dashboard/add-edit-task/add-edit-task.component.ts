@@ -18,6 +18,7 @@ export class AddEditTaskComponent implements OnInit {
   taskId: number = 0;
   taskDetails: Task = {} as Task;
   taskDisplayDetails: MiniatureTask = {} as MiniatureTask;
+  projectData = project_data;
   taskForm: FormGroup;
 
   constructor(private route: ActivatedRoute) {
@@ -50,11 +51,7 @@ export class AddEditTaskComponent implements OnInit {
         this.taskDetails.statusId.toString(),
         Validators.required
       ),
-      project: new FormControl(this.taskDisplayDetails.project, [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(20),
-      ]),
+      project: new FormControl(this.taskDetails.projectId, Validators.required),
     });
   }
 
@@ -72,8 +69,8 @@ export class AddEditTaskComponent implements OnInit {
         status_data.find((s) => s.id === this.taskDetails?.statusId)?.status ??
         '',
       project:
-        project_data.find((p) => p.id === this.taskDetails?.projectId)?.name ??
-        '',
+        this.projectData.find((p) => p.id === this.taskDetails?.projectId)
+          ?.name ?? '',
     };
   }
 
@@ -86,9 +83,7 @@ export class AddEditTaskComponent implements OnInit {
       dueDate: this.taskForm.value.dueDate,
       priorityId: Number(this.taskForm.value.priority),
       statusId: Number(this.taskForm.value.status),
-      projectId:
-        project_data.find((p) => p.name === this.taskForm.value.project)?.id ??
-        0,
+      projectId: Number(this.taskForm.value.project),
       userId: 0,
     };
     console.log(this.taskDetails);
