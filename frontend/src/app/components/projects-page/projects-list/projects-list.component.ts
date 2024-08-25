@@ -1,4 +1,4 @@
-import { ProjectList } from './../../../models/project';
+import { ProjectList } from '../../../models/project';
 import {
   Component,
   Input,
@@ -17,8 +17,8 @@ import { TaskStatusDialogComponent } from '../task-status-dialog/task-status-dia
 
 @Component({
   selector: 'projects-list',
-  templateUrl: './projects-pageprojects-list.component.html',
-  styleUrl: './projects-pageprojects-list.component.css',
+  templateUrl: './projects-list.component.html',
+  styleUrl: './projects-list.component.css',
 })
 export class ProjectsListComponent implements OnInit, OnChanges {
   @Input()

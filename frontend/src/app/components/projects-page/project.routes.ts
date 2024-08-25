@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ProjectsPageComponent } from './projects-page.component';
+import { AddEditProjectComponent } from './add-edit-project/add-edit-project.component';
 
 export const projectRoutes: Routes = [
   {
@@ -9,10 +10,10 @@ export const projectRoutes: Routes = [
         path: '',
         component: ProjectsPageComponent,
       },
-      // {
-      //   path: 'add-edit-project/:projectId',
-      //   component: AddEditProjectComponent,
-      // },
+      {
+        path: 'add-edit/:projectId',
+        component: AddEditProjectComponent,
+      },
       // {
       //   path: 'project-details/edit/:id',
       //   component: ProjectEditDetailsComponent,

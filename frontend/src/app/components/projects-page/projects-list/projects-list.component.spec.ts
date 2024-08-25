@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectsListComponent } from './projects-pageprojects-list.component';
+import { ProjectsListComponent } from './projects-list.component';
 
-describe('ProjectsPageprojectsListComponent', () => {
+describe('ProjectsListComponent', () => {
   let component: ProjectsListComponent;
   let fixture: ComponentFixture<ProjectsListComponent>;
 
