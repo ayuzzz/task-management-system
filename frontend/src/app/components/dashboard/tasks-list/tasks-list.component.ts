@@ -26,4 +26,11 @@ export class TasksListComponent {
       return StatusPriorityTextHelper.getPriorityTextColor(textValue);
     }
   }
+
+  completeTask(taskId: number): void {
+    console.log('Task completed with id: ', taskId);
+  }
+  deleteTask(taskId: number): void {
+    console.log('Task deleted with id: ', taskId);
+  }
 }

@@ -25,13 +25,13 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let task" class="actions-column">
-        <button mat-icon-button matTooltip="Complete Task">
+        <button mat-icon-button matTooltip="Complete Task" (click)="completeTask(task.id)">
           <mat-icon>done_outline</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Edit Task">
+        <button mat-icon-button matTooltip="Edit Task" [routerLink]="['/dashboard/add-edit', task.id]">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Delete Task">
+        <button mat-icon-button matTooltip="Delete Task" (click)="deleteTask(task.id)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
