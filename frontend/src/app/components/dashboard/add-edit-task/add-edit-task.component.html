@@ -1,1 +1,89 @@
-<p>add-edit-task works with task id {{this.taskId}}!</p>
+<form [formGroup]="taskForm" (ngSubmit)="saveTask()" fxLayout="column" fxLayoutAlign="center center">
+  <div class="form-field" fxFlex="50%">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput id="title" formControlName="title">
+      <mat-error *ngIf="this.taskForm.get('title')?.invalid && this.taskForm.get('title')?.touched">
+        <small *ngIf="this.taskForm.get('title')?.errors?.['required']">Title is required.</small>
+        <small *ngIf="this.taskForm.get('title')?.errors?.['minlength']">Title must be at least 3 characters
+          long.</small>
+        <small *ngIf="this.taskForm.get('title')?.errors?.['maxlength']">Title must be at the most 20 characters
+          long.</small>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-field" fxFlex="50%">
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <input matInput id="description" formControlName="description">
+      <mat-error *ngIf="this.taskForm.get('description')?.invalid && this.taskForm.get('description')?.touched">
+        <small *ngIf="this.taskForm.get('description')?.errors?.['required']">Description is required.</small>
+        <small *ngIf="this.taskForm.get('description')?.errors?.['minlength']">Description must be at least 3
+          characters
+          long.</small>
+        <small *ngIf="this.taskForm.get('description')?.errors?.['maxlength']">Description must be at the most 100
+          characters
+          long.</small>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Datepicker Control -->
+  <div class="form-field" fxFlex="50%">
+    <mat-form-field appearance="fill">
+      <mat-label>Select Due Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dueDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="this.taskForm.get('dueDate')?.invalid && this.taskForm.get('dueDate')?.touched">
+        <small *ngIf="this.taskForm.get('dueDate')?.errors?.['required']">Due Date is required.</small>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Priority Radio Buttons -->
+  <div class="form-field" fxFlex="50%">
+    <mat-label for="priority">Priority</mat-label>
+    <mat-radio-group formControlName="priority" id="priority">
+      <mat-radio-button value="1">Low</mat-radio-button>
+      <mat-radio-button value="2">Medium</mat-radio-button>
+      <mat-radio-button value="3">High</mat-radio-button>
+    </mat-radio-group>
+    <div *ngIf="this.taskForm.get('priority')?.invalid && this.taskForm.get('priority')?.touched">
+      <small *ngIf="this.taskForm.get('priority')?.errors?.['required']">Priority is required.</small>
+    </div>
+  </div>
+
+  <!-- Status Radio Buttons -->
+  <div class="form-field" fxFlex="50%">
+    <mat-label for="status">Status</mat-label>
+    <mat-radio-group formControlName="status" id="status">
+      <mat-radio-button value="1">Not Started</mat-radio-button>
+      <mat-radio-button value="2">In Progress</mat-radio-button>
+      <mat-radio-button value="3">Completed</mat-radio-button>
+    </mat-radio-group>
+    <div *ngIf="this.taskForm.get('status')?.invalid && this.taskForm.get('status')?.touched">
+      <small *ngIf="this.taskForm.get('status')?.errors?.['required']">Status is required.</small>
+    </div>
+  </div>
+
+  <div class="form-field" fxFlex="50%">
+    <mat-form-field appearance="fill">
+      <mat-label>Project</mat-label>
+      <input matInput id="project" formControlName="project">
+      <mat-error *ngIf="this.taskForm.get('project')?.invalid && this.taskForm.get('project')?.touched">
+        <small *ngIf="this.taskForm.get('project')?.errors?.['required']">Project is required.</small>
+        <small *ngIf="this.taskForm.get('project')?.errors?.['minlength']">Project must be at least 3 characters
+          long.</small>
+        <small *ngIf="this.taskForm.get('project')?.errors?.['maxlength']">Project must be at the most 20
+          characters
+          long.</small>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-field" fxFlex="25%">
+    <button mat-raised-button type="submit" [disabled]="this.taskForm.invalid">Save</button>
+  </div>
+</form>

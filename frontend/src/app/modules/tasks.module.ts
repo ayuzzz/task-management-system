@@ -6,9 +6,15 @@ import { TasksListComponent } from '../components/dashboard/tasks-list/tasks-lis
 import { RouterModule } from '@angular/router';
 import { dashboardRoutes } from '../components/dashboard/dashboard.routes';
 import { AddEditTaskComponent } from '../components/dashboard/add-edit-task/add-edit-task.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [DashboardComponent, TasksListComponent, AddEditTaskComponent],
-  imports: [CommonModule, SharedModule, RouterModule.forChild(dashboardRoutes)],
+  imports: [
+    CommonModule,
+    SharedModule,
+    RouterModule.forChild(dashboardRoutes),
+    ReactiveFormsModule,
+  ],
 })
 export class TasksModule {}
