@@ -44,13 +44,10 @@ export class AddEditTaskComponent implements OnInit {
         Validators.required
       ),
       priority: new FormControl(
-        this.taskDetails.priorityId.toString(),
+        this.taskDetails.priorityId,
         Validators.required
       ),
-      status: new FormControl(
-        this.taskDetails.statusId.toString(),
-        Validators.required
-      ),
+      status: new FormControl(this.taskDetails.statusId, Validators.required),
       project: new FormControl(this.taskDetails.projectId, Validators.required),
     });
   }

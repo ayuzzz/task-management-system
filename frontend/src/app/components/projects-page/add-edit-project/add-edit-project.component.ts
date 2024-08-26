@@ -26,7 +26,7 @@ export class AddEditProjectComponent {
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.projectId = parseInt(
-      this.activatedRoute.snapshot.params['projectId'] ?? '0'
+      this.activatedRoute.snapshot.params['projectId'] ?? 0
     );
     this.projectDetails =
       project_data.find((project) => project.id === this.projectId) ??
@@ -67,7 +67,7 @@ export class AddEditProjectComponent {
         Validators.required
       ),
       status: new FormControl(
-        this.projectDetails.statusId.toString(),
+        this.projectDetails.statusId,
         Validators.required
       ),
     });

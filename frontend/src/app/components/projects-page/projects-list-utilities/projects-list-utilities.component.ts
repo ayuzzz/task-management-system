@@ -29,9 +29,11 @@ export class ProjectsListUtilitiesComponent implements OnInit {
   }
 
   addNewProject(): void {
-    project_data.map((project) =>
-      project.id > this.projectId ? (this.projectId = project.id) : null
-    );
+    project_data.forEach((project) => {
+      if (project.id > this.projectId) {
+        this.projectId = project.id;
+      }
+    });
 
     this.projectId++;
 
