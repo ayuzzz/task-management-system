@@ -1,7 +1,7 @@
 import { project_data } from './../../../data/project-data';
 import { task_data } from './../../../data/task-data';
 import { project_user_mappings } from './../../../data/project-user-mapping-data';
-import { ProjectList } from './../../models/project';
+import { ProjectList, TeamMember } from './../../models/project';
 import { Status } from './../../models/status';
 import { Component, OnInit } from '@angular/core';
 import { status_data } from '../../../data/status-priority-data';
@@ -38,10 +38,14 @@ export class ProjectsPageComponent implements OnInit {
           'NA',
         teamMembers: projectUserMappings
           .filter((mapping) => mapping.projectId === project.id)
-          .map(
-            (mapping) =>
-              userData.find((user) => user.id == mapping.userId)?.name || 'NA'
-          ),
+          .map((mapping) => {
+            let user = userData.find((user) => user.id === mapping.userId);
+            return {
+              id: mapping?.userId,
+              name: user?.name,
+              email: user?.email,
+            } as TeamMember;
+          }),
         progress:
           taskData.filter(
             (task) => task.projectId === project.id && task.statusId === 3

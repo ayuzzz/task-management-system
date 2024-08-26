@@ -20,6 +20,12 @@ export interface ProjectList {
   dueDate: string;
   userId: number;
   status: string;
-  teamMembers: string[];
+  teamMembers: TeamMember[];
   progress: number;
+}
+
+export interface TeamMember {
+  id: number;
+  name: string;
+  email: string;
 }
