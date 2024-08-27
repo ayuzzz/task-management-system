@@ -6,19 +6,20 @@ import { AppComponent } from '../app.component';
 import { NavbarComponent } from '../components/shared/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from '../app.routes';
-import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 import { SharedModule } from './shared.module';
 import { ProjectsModule } from './projects.module';
 import { TasksModule } from './tasks.module';
+import { ProfileModule } from './profile.module';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, ProfilePageComponent],
+  declarations: [AppComponent, NavbarComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     SharedModule,
     ProjectsModule,
     TasksModule,
+    ProfileModule,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

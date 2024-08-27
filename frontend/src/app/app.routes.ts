@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 
 export const appRoutes: Routes = [
   {
@@ -14,7 +13,8 @@ export const appRoutes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfilePageComponent,
+    loadChildren: () =>
+      import('./modules/profile.module').then((m) => m.ProfileModule),
   },
   {
     path: '',
