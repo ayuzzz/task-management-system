@@ -1,4 +1,4 @@
-import { ProjectList } from './../../../models/project';
+import { ProjectList } from '../../../models/project';
 import {
   Component,
   Input,
@@ -12,11 +12,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Status } from '../../../models/status';
 import { status_data } from '../../../../data/status-priority-data';
 import { StatusPriorityTextHelper } from '../../../utilities/status-priority-text-helper';
+import { MatDialog } from '@angular/material/dialog';
+import { TaskStatusDialogComponent } from '../task-status-dialog/task-status-dialog.component';
 
 @Component({
   selector: 'projects-list',
-  templateUrl: './projects-pageprojects-list.component.html',
-  styleUrl: './projects-pageprojects-list.component.css',
+  templateUrl: './projects-list.component.html',
+  styleUrl: './projects-list.component.css',
 })
 export class ProjectsListComponent implements OnInit, OnChanges {
   @Input()
@@ -40,6 +42,8 @@ export class ProjectsListComponent implements OnInit, OnChanges {
     new MatTableDataSource<ProjectList>([]);
 
   @ViewChild(MatSort) sortBy!: MatSort;
+
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.statuses = status_data;
@@ -88,10 +92,19 @@ export class ProjectsListComponent implements OnInit, OnChanges {
 
   getTextColor(type: string, textValue: string): string {
     if (type === 'status') {
-      console.log(StatusPriorityTextHelper.getStatusTextColor(textValue));
       return StatusPriorityTextHelper.getStatusTextColor(textValue);
     } else {
       return StatusPriorityTextHelper.getPriorityTextColor(textValue);
     }
+  }
+
+  openTaskStatusDialog(projectId: number) {
+    this.dialog.open(TaskStatusDialogComponent, {
+      width: '400px',
+      height: 'auto',
+      data: {
+        projectId: projectId,
+      },
+    });
   }
 }

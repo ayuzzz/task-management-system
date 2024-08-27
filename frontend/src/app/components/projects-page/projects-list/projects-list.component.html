@@ -21,7 +21,7 @@
       <th mat-header-cell *matHeaderCellDef> Team Members </th>
       <td mat-cell *matCellDef="let project">
         <div *ngFor="let member of project.teamMembers" class="user-bubble">
-          <span class="user-initials">{{this.getInitials(member) }}</span>
+          <span class="user-initials">{{this.getInitials(member.name) }}</span>
         </div>
       </td>
     </ng-container>
@@ -38,13 +38,14 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let project" class="actions-column">
-        <button mat-icon-button (click)="this.viewProject(project)">
+        <button mat-icon-button (click)="this.openTaskStatusDialog(project.id)"
+          matTooltip="View tasks-status breakdown">
           <mat-icon>visibility</mat-icon>
         </button>
-        <button mat-icon-button (click)="this.editProject(project)">
+        <button mat-icon-button [routerLink]="['/projects/add-edit',project.id]" matTooltip="Edit Project">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="this.archiveProject(project)">
+        <button mat-icon-button (click)="this.archiveProject(project)" matTooltip="Archive Project">
           <mat-icon>archive</mat-icon>
         </button>
       </td>

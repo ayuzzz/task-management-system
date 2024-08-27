@@ -41,9 +41,11 @@ export class DashboardComponent implements OnInit {
   }
 
   addNewTask(): void {
-    this.taskData.map((task) =>
-      task.id > this.taskId ? (this.taskId = task.id) : null
-    );
+    this.taskData.forEach((task) => {
+      if (task.id > this.taskId) {
+        this.taskId = task.id;
+      }
+    });
 
     this.taskId++;
 

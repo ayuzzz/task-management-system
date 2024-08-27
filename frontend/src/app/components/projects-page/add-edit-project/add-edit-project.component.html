@@ -1,0 +1,89 @@
+<form [formGroup]="this.projectForm" (ngSubmit)="saveProject()" fxLayout="column" fxLayoutAlign="center center">
+  <div class="form-field" fxFlex="50%">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput id="name" formControlName="name">
+      <mat-error *ngIf="this.projectForm.get('name')?.invalid && this.projectForm.get('name')?.touched">
+        <small *ngIf="this.projectForm.get('name')?.errors?.['required']">Project name is required.</small>
+        <small *ngIf="this.projectForm.get('name')?.errors?.['minlength']">Project name must be at least 3 characters
+          long.</small>
+        <small *ngIf="this.projectForm.get('name')?.errors?.['maxlength']">Project name must be at the most 20
+          characters
+          long.</small>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-field" fxFlex="50%">
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <input matInput id="description" formControlName="description">
+      <mat-error *ngIf="this.projectForm.get('description')?.invalid && this.projectForm.get('description')?.touched">
+        <small *ngIf="this.projectForm.get('description')?.errors?.['required']">Description is required.</small>
+        <small *ngIf="this.projectForm.get('description')?.errors?.['minlength']">Description must be at least 3
+          characters
+          long.</small>
+        <small *ngIf="this.projectForm.get('description')?.errors?.['maxlength']">Description must be at the most 100
+          characters
+          long.</small>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Datepicker Control -->
+  <div class="form-field" fxFlex="50%">
+    <mat-form-field appearance="fill">
+      <mat-label>Select Due Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dueDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="this.projectForm.get('dueDate')?.invalid && this.projectForm.get('dueDate')?.touched">
+        <small *ngIf="this.projectForm.get('dueDate')?.errors?.['required']">Due Date is required.</small>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Priority Radio Buttons -->
+  <!-- <div class="form-field" fxFlex="50%">
+    <mat-label for="priority">Priority</mat-label>
+    <mat-radio-group formControlName="priority" id="priority">
+      <mat-radio-button value="1">Low</mat-radio-button>
+      <mat-radio-button value="2">Medium</mat-radio-button>
+      <mat-radio-button value="3">High</mat-radio-button>
+    </mat-radio-group>
+    <div *ngIf="this.taskForm.get('priority')?.invalid && this.taskForm.get('priority')?.touched">
+      <small *ngIf="this.taskForm.get('priority')?.errors?.['required']">Priority is required.</small>
+    </div>
+  </div> -->
+
+  <!-- Status Radio Buttons -->
+  <div class="form-field" fxFlex="50%">
+    <mat-label for="status">Status</mat-label>
+    <mat-radio-group formControlName="status" id="status">
+      <mat-radio-button value="3">Completed</mat-radio-button>
+      <mat-radio-button value="4">Active</mat-radio-button>
+      <mat-radio-button value="5">Archived</mat-radio-button>
+    </mat-radio-group>
+    <div *ngIf="this.projectForm.get('status')?.invalid && this.projectForm.get('status')?.touched">
+      <small *ngIf="this.projectForm.get('status')?.errors?.['required']">Status is required.</small>
+    </div>
+  </div>
+
+  <!-- Team Members select option -->
+  <div class="form-field" fxFlex="50%">
+    <mat-form-field appearance="fill">
+      <mat-label>Team Members</mat-label>
+      <mat-select formControlName="teamMembers" multiple>
+        <mat-option *ngFor="let user of userData" [value]="user.id">{{user.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="this.projectForm.get('teamMembers')?.invalid && this.projectForm.get('teamMembers')?.touched">
+        <small *ngIf="this.projectForm.get('teamMembers')?.errors?.['required']">Team Members are required.</small>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-field" fxFlex="25%">
+    <button mat-raised-button type="submit" [disabled]="this.projectForm.invalid">Save</button>
+  </div>
+</form>
