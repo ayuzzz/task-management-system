@@ -1,0 +1,10 @@
+.login-form{
+  justify-content: center;
+  align-items: center;
+}
+
+.register{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}

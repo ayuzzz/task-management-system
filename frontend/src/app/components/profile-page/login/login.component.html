@@ -1,2 +1,26 @@
-<profile-common></profile-common>
-<p>login works!</p>
+<div fxLayout="column" fxFlexAlign="center center">
+  <div fxFlex="30%">
+    <profile-common></profile-common>
+  </div>
+  <div fxFlex="70%">
+    <div class="login-form" fxLayout="column" fxFlexAlign="center center">
+      <div fxFlex="50%">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" id="email" [(ngModel)]="this.email">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50%">
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" id="password" [(ngModel)]="this.password">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50%">
+        <button mat-raised-button (click)="login()">Login</button>
+      </div>
+    </div>
+    <div class="register">
+      Not a registered user? <button mat-button [routerLink]="['/profile/register']">Register Here</button>
+    </div>
+  </div>

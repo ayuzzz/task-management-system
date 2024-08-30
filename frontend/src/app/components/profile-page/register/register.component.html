@@ -1,2 +1,69 @@
-<profile-common></profile-common>
-<p>register works!</p>
+<div fxLayout="column" fxFlexAlign="center center">
+  <div fxFlex="30%">
+    <profile-common></profile-common>
+  </div>
+  <div fxFlex="70%">
+    <form [formGroup]="this.registerForm" (ngSubmit)="register()" fxLayout="column" fxFlexAlign="center center">
+      <div fxFlex="50%">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" required>
+          <mat-error *ngIf="this.registerForm.get('name')?.invalid && this.registerForm.get('name')?.touched">
+            <small *ngIf="this.registerForm.get('name')?.errors?.['required']">Name is required.</small>
+            <small *ngIf="this.registerForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters
+              long.</small>
+            <small *ngIf="this.registerForm.get('name')?.errors?.['maxlength']">Name must be at the most 20 characters
+              long.</small>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="50%">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+          <mat-error *ngIf="this.registerForm.get('email')?.invalid && this.registerForm.get('email')?.touched">
+            <small *ngIf="this.registerForm.get('email')?.errors?.['required']">Email is required.</small>
+            <small *ngIf="this.registerForm.get('email')?.errors?.['email']">Email must be a valid email.</small>
+            <small *ngIf="this.registerForm.get('email')?.errors?.['maxlength']">Email must be at the most 30 characters
+              long.</small>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="50%">
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password">
+          <mat-error *ngIf="this.registerForm.get('password')?.invalid && this.registerForm.get('password')?.touched">
+            <small *ngIf="this.registerForm.get('password')?.errors?.['required']">Password is required.</small>
+            <small *ngIf="this.registerForm.get('password')?.errors?.['minlength']">Password must be at least 8
+              characters
+              long.</small>
+            <small *ngIf="this.registerForm.get('password')?.errors?.['maxlength']">Password must be at the most 30
+              characters long.</small>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="50%">
+        <mat-form-field appearance="fill">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput formControlName="confirmPassword">
+          <mat-error
+            *ngIf="this.registerForm.get('confirmPassword')?.invalid && this.registerForm.get('confirmPassword')?.touched">
+            <small *ngIf="this.registerForm.get('confirmPassword')?.errors?.['required']">Password is required.</small>
+            <small *ngIf="this.registerForm.get('confirmPassword')?.errors?.['minlength']">Password must be at least 8
+              characters
+              long.</small>
+            <small *ngIf="this.registerForm.get('confirmPassword')?.errors?.['maxlength']">Password must be at the most
+              30
+              characters long.</small>
+            <small *ngIf="this.registerForm?.hasError('passwordsDoNotMatch')">Passwords
+              should match.</small>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="50%">
+        <button mat-raised-button type="submit" [disabled]="this.registerForm.invalid">Register</button>
+      </div>
+    </form>
+  </div>
+</div>
