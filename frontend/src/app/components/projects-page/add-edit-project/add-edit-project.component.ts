@@ -31,8 +31,6 @@ export class AddEditProjectComponent {
       project_data.find((project) => project.id === this.projectId) ??
       ({} as Project);
 
-    console.log(this.projectDetails);
-
     this.projectDisplayDetails = {
       id: this.projectDetails.id,
       name: this.projectDetails.name,

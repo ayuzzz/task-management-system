@@ -75,7 +75,6 @@ export class AddEditTaskComponent implements OnInit {
   }
 
   saveTask(): void {
-    console.log(this.taskForm.value);
     this.taskDetails = {
       id: this.taskId,
       title: this.taskForm.value.title,
@@ -86,6 +85,5 @@ export class AddEditTaskComponent implements OnInit {
       projectId: Number(this.taskForm.value.project),
       userId: 0,
     };
-    console.log(this.taskDetails);
   }
 }

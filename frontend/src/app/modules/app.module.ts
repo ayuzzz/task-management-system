@@ -28,7 +28,7 @@ import { ProfileModule } from './profile.module';
       domain: 'dev-2kfsaye6ipkg4zd8.us.auth0.com',
       clientId: 's8vtstbFlLhIr0L8MKU7XPam3PYGV6VI',
       authorizationParams: {
-        redirect_uri: window.location.origin,
+        redirect_uri: `${window.location.origin}/profile`,
       },
     }),
   ],

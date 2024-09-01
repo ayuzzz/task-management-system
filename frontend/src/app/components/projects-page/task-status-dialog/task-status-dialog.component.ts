@@ -32,11 +32,5 @@ export class TaskStatusDialogComponent {
     this.notStartedTasksCount = this.totalTasks.filter(
       (task) => task.statusId === 1
     ).length;
-
-    console.log(this.projectId);
-    console.log(this.totalTasks);
-    console.log(this.completedTasksCount);
-    console.log(this.inProgressTasksCount);
-    console.log(this.notStartedTasksCount);
   }
 }
