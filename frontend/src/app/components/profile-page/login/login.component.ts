@@ -10,20 +10,22 @@ export class LoginComponent {
   email: string = '';
   name: string = '';
   password: string = '';
-  isLogedIn: boolean = false;
+  profileImageUrl: string = '';
+  isLoggedIn: boolean = false;
 
   constructor(private authService: AuthService) {
     this.authService.user$.subscribe((user) => {
       if (user) {
         this.email = user.email ?? 'NA';
-        this.name = user.name ?? 'NA';
-        sessionStorage.setItem('email', this.email);
-        sessionStorage.setItem('name', this.name);
+        this.name = user.nickname ?? 'NA';
+        this.profileImageUrl =
+          user.picture ??
+          'https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png';
       }
     });
 
     this.authService.isAuthenticated$.subscribe((autheticationStatus) => {
-      this.isLogedIn = autheticationStatus;
+      this.isLoggedIn = autheticationStatus;
     });
   }
 
@@ -41,9 +43,6 @@ export class LoginComponent {
     const options = {
       returnTo: `${window.location.origin}/profile`,
     };
-
-    sessionStorage.removeItem('email');
-    sessionStorage.removeItem('name');
     this.authService.logout({ logoutParams: options });
   }
 }

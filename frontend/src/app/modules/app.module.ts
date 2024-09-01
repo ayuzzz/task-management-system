@@ -27,6 +27,8 @@ import { ProfileModule } from './profile.module';
     provideAuth0({
       domain: 'dev-2kfsaye6ipkg4zd8.us.auth0.com',
       clientId: 's8vtstbFlLhIr0L8MKU7XPam3PYGV6VI',
+      cacheLocation: 'localstorage',
+      useRefreshTokens: true,
       authorizationParams: {
         redirect_uri: `${window.location.origin}/profile`,
       },

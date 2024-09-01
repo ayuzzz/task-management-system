@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +8,11 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   user: string = '';
+
+  constructor(private authService: AuthService) {}
   ngOnInit() {
-    this.user = sessionStorage.getItem('name') ?? 'NA';
+    this.authService.user$.subscribe((user) => {
+      this.user = user?.nickname ?? 'NA';
+    });
   }
 }

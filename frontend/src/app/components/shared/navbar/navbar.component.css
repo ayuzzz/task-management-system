@@ -5,3 +5,11 @@ img {
   align-items: center;
 
 }
+
+.user-button{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: end;
+}
+

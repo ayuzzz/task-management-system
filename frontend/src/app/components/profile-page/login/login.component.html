@@ -4,12 +4,13 @@
   </div>
   <div fxFlex="70%">
     <div class="login" fxLayout="column" fxFlexAlign="center center">
-      <div *ngIf="!isLogedIn" fxFlex="50%">
+      <div *ngIf="!isLoggedIn" fxFlex="50%">
         <button mat-raised-button (click)="login()">Login</button>
       </div>
 
-      <div *ngIf="isLogedIn" fxFlex="50%">
-        <h2>Name : {{this.name}}</h2>
+      <div *ngIf="isLoggedIn" fxFlex="50%">
+        <img [src]="this.profileImageUrl" alt="profile" width="150" height="150">
+        <h3>Name : {{this.name}}</h3>
         <h3>Email : {{this.email}}</h3>
         <button mat-raised-button (click)="logout()">Logout</button>
       </div>
