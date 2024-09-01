@@ -1,10 +1,5 @@
-.login-form{
+.login{
   justify-content: center;
   align-items: center;
-}
-
-.register{
-  justify-content: center;
-  align-items: center;
-  display: flex;
+  text-align: center;
 }

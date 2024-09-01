@@ -21,6 +21,10 @@
       <img src="assets/logo.png" alt="Task Management System logo">
       &nbsp;
       <button mat-button [routerLink]="['/dashboard']">Task Management System</button>
+      <div *ngIf="isLoggedIn"><img class="profile-image" [src]="this.profileImageUrl" alt="profile"
+          (click)="navigateToProfilePage()">
+      </div>
+
     </mat-toolbar>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -54,7 +54,6 @@ export class ProjectsPageComponent implements OnInit {
             1),
       });
     });
-    console.log(this.projects);
     this.activeProjectsCount = this.projects.filter(
       (project) => project.status === 'Active'
     ).length;
@@ -66,6 +65,5 @@ export class ProjectsPageComponent implements OnInit {
 
   filterProjects($event: string): void {
     this.filterString = $event;
-    console.log(this.filterString);
   }
 }

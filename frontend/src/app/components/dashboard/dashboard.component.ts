@@ -37,7 +37,6 @@ export class DashboardComponent implements OnInit {
     ).length;
 
     this.tasks = this.getRecentTasksDetails();
-    console.log(this.tasks);
   }
 
   addNewTask(): void {
