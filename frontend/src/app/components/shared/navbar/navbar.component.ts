@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
@@ -7,12 +8,23 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  user: string = '';
+  isLoggedIn: boolean = false;
+  profileImageUrl: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
   ngOnInit() {
     this.authService.user$.subscribe((user) => {
-      this.user = user?.nickname ?? 'NA';
+      this.profileImageUrl =
+        user?.picture ??
+        'https://www.pngall.com/wp-content/uploads/5/Profile-Male-Transparent.png';
     });
+
+    this.authService.isAuthenticated$.subscribe((authenticationStatus) => {
+      this.isLoggedIn = authenticationStatus;
+    });
+  }
+
+  navigateToProfilePage() {
+    this.router.navigate(['/profile']);
   }
 }

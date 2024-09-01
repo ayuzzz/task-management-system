@@ -20,7 +20,7 @@ export class LoginComponent {
         this.name = user.nickname ?? 'NA';
         this.profileImageUrl =
           user.picture ??
-          'https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png';
+          'https://www.pngall.com/wp-content/uploads/5/Profile-Male-Transparent.png';
       }
     });
 

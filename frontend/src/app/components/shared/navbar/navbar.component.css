@@ -6,10 +6,11 @@ img {
 
 }
 
-.user-button{
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  align-items: end;
+.profile-image{
+  cursor:pointer;
 }
 
+.profile-image:hover {
+  transform: scale(1.05); /* Slight zoom effect */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Add a shadow */
+}
