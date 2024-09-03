@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tms-frontend-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: tms-frontend-service
+            port:
+              number: 4200
+      - path: /tms-frontend/ui
+        pathType: Prefix
+        backend:
+          service:
+            name: tms-frontend-service
+            port:
+              number: 4200
