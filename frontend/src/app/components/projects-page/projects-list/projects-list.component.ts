@@ -1,3 +1,4 @@
+import { StatusPriorityService } from './../../../services/status-priority.service';
 import { ProjectList } from '../../../models/project';
 import {
   Component,
@@ -10,7 +11,6 @@ import {
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Status } from '../../../models/status';
-import { status_data } from '../../../../data/status-priority-data';
 import { StatusPriorityTextHelper } from '../../../utilities/status-priority-text-helper';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskStatusDialogComponent } from '../task-status-dialog/task-status-dialog.component';
@@ -43,10 +43,20 @@ export class ProjectsListComponent implements OnInit, OnChanges {
 
   @ViewChild(MatSort) sortBy!: MatSort;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private statusPriorityService: StatusPriorityService
+  ) {}
 
-  ngOnInit(): void {
-    this.statuses = status_data;
+  async ngOnInit() {
+    this.statusPriorityService.GetStatusData().subscribe(
+      (data) => {
+        this.statuses = data;
+      },
+      (error) => {
+        console.error('Error getting status data: ', error);
+      }
+    );
     this.filteredProjects = this.projects;
     this.dataSource.data = this.filteredProjects;
   }
@@ -80,14 +90,8 @@ export class ProjectsListComponent implements OnInit, OnChanges {
     return initials.toUpperCase();
   }
 
-  viewProject(_t99: any) {
-    throw new Error('Method not implemented.');
-  }
-  editProject(_t99: any) {
-    throw new Error('Method not implemented.');
-  }
-  archiveProject(_t99: any) {
-    throw new Error('Method not implemented.');
+  archiveProject(projectId: number) {
+    alert('Archive project with id: ' + projectId);
   }
 
   getTextColor(type: string, textValue: string): string {

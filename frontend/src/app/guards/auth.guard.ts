@@ -9,7 +9,6 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
-    debugger;
     let isAuthenticated = false;
     this.authService.isAuthenticated$.subscribe((autheticationStatus) => {
       isAuthenticated = autheticationStatus;

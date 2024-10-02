@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -23,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule.forChild(projectRoutes),
     SharedModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
 })
 export class ProjectsModule {}

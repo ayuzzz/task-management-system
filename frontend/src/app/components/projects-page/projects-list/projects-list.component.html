@@ -45,7 +45,7 @@
         <button mat-icon-button [routerLink]="['/projects/add-edit',project.id]" matTooltip="Edit Project">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="this.archiveProject(project)" matTooltip="Archive Project">
+        <button mat-icon-button (click)="this.archiveProject(project.id)" matTooltip="Archive Project">
           <mat-icon>archive</mat-icon>
         </button>
       </td>

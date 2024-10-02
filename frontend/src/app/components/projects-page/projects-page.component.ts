@@ -1,11 +1,17 @@
-import { project_data } from './../../../data/project-data';
-import { task_data } from './../../../data/task-data';
-import { project_user_mappings } from './../../../data/project-user-mapping-data';
-import { ProjectList, TeamMember } from './../../models/project';
+import { StatusPriorityService } from './../../services/status-priority.service';
+import { forkJoin, lastValueFrom } from 'rxjs';
+import { ProjectService } from './../../services/project.service';
+import { TaskService } from './../../services/task.service';
+import {
+  Project,
+  ProjectList,
+  ProjectUserMapping,
+  TeamMember,
+} from './../../models/project';
 import { Status } from './../../models/status';
 import { Component, OnInit } from '@angular/core';
-import { status_data } from '../../../data/status-priority-data';
 import { user_data } from '../../../data/user-data';
+import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-projects-page',
@@ -19,15 +25,38 @@ export class ProjectsPageComponent implements OnInit {
   completedProjectsCount: number | null = null;
   filterString: string = '';
 
-  ngOnInit(): void {
-    let projectsData = project_data;
-    let projectUserMappings = project_user_mappings;
-    let statusData = status_data;
-    let userData = user_data;
-    let taskData = task_data;
+  constructor(
+    private taskService: TaskService,
+    private projectService: ProjectService,
+    private statusPriorityService: StatusPriorityService
+  ) {}
 
-    projectsData.forEach((project) => {
-      this.projects.push({
+  async ngOnInit() {
+    let projectsData: Project[];
+    let projectUserMappings: ProjectUserMapping[];
+    let statusData: Status[] = [];
+    let userData = user_data;
+    let taskData: Task[];
+
+    this.statusPriorityService.GetStatusData().subscribe(
+      (data) => {
+        statusData = data;
+      },
+      (error) => {
+        console.error('Error getting status data: ', error);
+      }
+    );
+
+    [projectsData, projectUserMappings, taskData] = await lastValueFrom(
+      forkJoin([
+        this.projectService.GetProjects(),
+        this.projectService.GetProjectUserMappings(),
+        this.taskService.getAllTasks(),
+      ])
+    );
+
+    this.projects = projectsData.map((project) => {
+      return {
         id: project.id,
         name: project.name,
         description: project.description,
@@ -52,8 +81,9 @@ export class ProjectsPageComponent implements OnInit {
           ).length /
           (taskData.filter((task) => task.projectId === project.id).length ||
             1),
-      });
+      };
     });
+
     this.activeProjectsCount = this.projects.filter(
       (project) => project.status === 'Active'
     ).length;
