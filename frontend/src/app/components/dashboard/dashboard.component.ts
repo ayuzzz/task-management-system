@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MiniatureTask, Task } from '../../models/task';
-import { task_data } from '../../../data/task-data';
-import { priority_data, status_data } from '../../../data/status-priority-data';
-import { project_data } from '../../../data/project-data';
+import { MiniatureTask } from '../../models/task';
 import { Router } from '@angular/router';
+import { TaskService } from '../../services/task.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   taskId: number = 0;
-  taskData: Task[] = [];
+  taskData: MiniatureTask[] = [];
   completedTasksCount: number = 0;
   inProgressTasksCount: number = 0;
   notStartedTasksCount: number = 0;
@@ -20,20 +19,22 @@ export class DashboardComponent implements OnInit {
   tasks: MiniatureTask[] = [];
   allTasksDisplayed: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private tasksService: TaskService) {}
 
-  ngOnInit(): void {
-    this.taskData = task_data;
+  async ngOnInit() {
+    await lastValueFrom(this.tasksService.GetMiniatureTasks()).then((data) => {
+      this.taskData = data;
+    });
     this.completedTasksCount = this.taskData.filter(
-      (task) => task.statusId === 3
+      (task) => task.status === 'Completed'
     ).length;
 
     this.inProgressTasksCount = this.taskData.filter(
-      (task) => task.statusId === 2
+      (task) => task.status === 'In Progress'
     ).length;
 
     this.notStartedTasksCount = this.taskData.filter(
-      (task) => task.statusId === 1
+      (task) => task.status === 'Not Started'
     ).length;
 
     this.tasks = this.getRecentTasksDetails();
@@ -51,50 +52,14 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/dashboard/add-edit', this.taskId]);
   }
 
-  getAllTasksDetails(): MiniatureTask[] {
-    let allTasks: MiniatureTask[] = [];
-
-    this.taskData.map((task) => {
-      allTasks.push({
-        id: task.id,
-        title: task.title,
-        dueDate: task.dueDate,
-        priority:
-          priority_data.find((p) => p.id === task.priorityId)?.level || 'NA',
-        status: status_data.find((s) => s.id === task.statusId)?.status || 'NA',
-        project:
-          project_data.find((project) => project.id === task.projectId)?.name ||
-          'NA',
-      });
-    });
-
-    return allTasks;
-  }
-
   getRecentTasksDetails(): MiniatureTask[] {
-    let recentTasksList: MiniatureTask[] = [];
-
-    this.taskData.slice(0, 3).map((task) => {
-      recentTasksList.push({
-        id: task.id,
-        title: task.title,
-        dueDate: task.dueDate,
-        priority:
-          priority_data.find((p) => p.id === task.priorityId)?.level || 'NA',
-        status: status_data.find((s) => s.id === task.statusId)?.status || 'NA',
-        project:
-          project_data.find((project) => project.id === task.projectId)?.name ||
-          'NA',
-      });
-    });
-
-    return recentTasksList;
+    return this.taskData.slice(0, 3);
   }
 
   toggleAllTasksDisplayed(): void {
     this.allTasksDisplayed = !this.allTasksDisplayed;
     this.tasks = this.allTasksDisplayed
-      ? this.getAllTasksDetails()
+      ? this.taskData
       : this.getRecentTasksDetails();
   }
 }

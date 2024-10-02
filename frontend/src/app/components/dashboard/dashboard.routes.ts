@@ -17,10 +17,6 @@ export const dashboardRoutes: Routes = [
         component: AddEditTaskComponent,
         canActivate: [AuthGuard],
       },
-      // {
-      //   path: 'project-details/edit/:id',
-      //   component: ProjectEditDetailsComponent,
-      // },
     ],
   },
 ];

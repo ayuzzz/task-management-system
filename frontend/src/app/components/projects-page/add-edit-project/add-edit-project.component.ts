@@ -1,11 +1,17 @@
+import { StatusPriorityService } from './../../../services/status-priority.service';
+import { lastValueFrom } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { project_user_mappings } from './../../../../data/project-user-mapping-data';
 import { user_data } from './../../../../data/user-data';
-import { Component, Input } from '@angular/core';
-import { project_data } from '../../../../data/project-data';
-import { status_data } from '../../../../data/status-priority-data';
-import { Project, ProjectList, TeamMember } from '../../../models/project';
+import { Component } from '@angular/core';
+import {
+  Project,
+  ProjectList,
+  ProjectUserMapping,
+  TeamMember,
+} from '../../../models/project';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ProjectService } from '../../../services/project.service';
+import { Status } from '../../../models/status';
 
 @Component({
   selector: 'app-add-edit-project',
@@ -14,33 +20,74 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AddEditProjectComponent {
   projectId: number;
-  projectDetails: Project;
-  projectDisplayDetails: ProjectList;
+  projectDetails: Project = {} as Project;
+  projectUserMappings: ProjectUserMapping[] = [] as ProjectUserMapping[];
+  projectDisplayDetails: ProjectList = {} as ProjectList;
   projectForm: FormGroup;
   taskDetails: any;
   taskForm: any;
   teamMembers: number[] = [];
   userData = user_data;
+  statuses: Status[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private projectService: ProjectService,
+    private statusPriorityService: StatusPriorityService
+  ) {
     this.projectId = parseInt(
       this.activatedRoute.snapshot.params['projectId'] ?? 0
     );
 
-    this.projectDetails =
-      project_data.find((project) => project.id === this.projectId) ??
-      ({} as Project);
+    this.projectForm = new FormGroup({
+      name: new FormControl(this.projectDetails?.name ?? '', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(20),
+      ]),
+      description: new FormControl(this.projectDetails?.description ?? '', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100),
+      ]),
+      // TODO: Add validation for being more than current Date
+      dueDate: new FormControl(
+        this.projectDetails?.dueDate,
+        Validators.required
+      ),
+      status: new FormControl(
+        this.projectDetails.statusId?.toString() ?? 4,
+        Validators.required
+      ),
+      teamMembers: new FormControl(
+        this.projectDisplayDetails?.teamMembers?.map((member) => member.id),
+        Validators.required
+      ),
+    });
+  }
+
+  async ngOnInit() {
+    this.statusPriorityService.GetStatusData().subscribe(
+      (data) => {
+        this.statuses = data;
+      },
+      (error) => {
+        console.error('Error getting status data: ', error);
+      }
+    );
+    await this.GetProjectDetails();
+    await this.GetProjectUserMappings();
 
     this.projectDisplayDetails = {
-      id: this.projectDetails.id,
-      name: this.projectDetails.name,
-      description: this.projectDetails.description,
-      dueDate: this.projectDetails.dueDate,
-      userId: this.projectDetails.userId,
+      id: this.projectId,
+      name: this.projectDetails?.name,
+      description: this.projectDetails?.description,
+      dueDate: this.projectDetails?.dueDate,
+      userId: this.projectDetails?.userId,
       status:
-        status_data.find((s) => s.id === this.projectDetails.statusId)
+        this.statuses.find((s) => s.id === this.projectDetails?.statusId)
           ?.status ?? 'NA',
-      teamMembers: project_user_mappings
+      teamMembers: this.projectUserMappings
         .filter((mapping) => mapping.projectId === this.projectId)
         .map((mapping) => {
           let user = user_data.find((user) => user.id === mapping.userId);
@@ -57,34 +104,16 @@ export class AddEditProjectComponent {
       (member) => member.id
     );
 
-    this.projectForm = new FormGroup({
-      name: new FormControl(this.projectDetails.name ?? '', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(20),
-      ]),
-      description: new FormControl(this.projectDetails.description ?? '', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(100),
-      ]),
-      // TODO: Add validation for being more than current Date
-      dueDate: new FormControl(
-        this.projectDetails.dueDate,
-        Validators.required
-      ),
-      status: new FormControl(
-        this.projectDetails.statusId?.toString() ?? 4,
-        Validators.required
-      ),
-      teamMembers: new FormControl(
-        this.projectDisplayDetails.teamMembers.map((member) => member.id),
-        Validators.required
-      ),
-    });
-  }
+    this.projectForm.get('name')?.setValue(this.projectDetails?.name);
+    this.projectForm
+      .get('description')
+      ?.setValue(this.projectDetails?.description);
+    this.projectForm.get('dueDate')?.setValue(this.projectDetails?.dueDate);
+    this.projectForm
+      .get('status')
+      ?.setValue(this.projectDetails?.statusId?.toString());
+    this.projectForm.get('teamMembers')?.setValue(this.teamMembers);
 
-  ngOnInit(): void {
     this.projectForm
       .get('teamMembers')
       ?.valueChanges.subscribe((value: string[]) => {
@@ -93,7 +122,39 @@ export class AddEditProjectComponent {
       });
   }
 
-  saveProject() {
+  async GetProjectDetails() {
+    await lastValueFrom(this.projectService.GetProject(this.projectId)).then(
+      (data) => {
+        this.projectDetails = data;
+      },
+      (error) => {
+        console.error('Error getting project details: ', error);
+      }
+    );
+  }
+
+  async GetProjectUserMappings() {
+    await lastValueFrom(this.projectService.GetProjectUserMappings()).then(
+      (data) => {
+        this.projectUserMappings = data;
+      },
+      (error) => {
+        console.error('Error getting project user data: ', error);
+      }
+    );
+  }
+
+  async saveProject() {
+    await lastValueFrom(
+      this.projectService.UpsertProject(this.projectForm.value)
+    ).then(
+      (data) => {
+        alert('Project saved successfully');
+      },
+      (error) => {
+        console.error('Error saving project: ', error);
+      }
+    );
     console.log(this.projectForm.value);
   }
 }

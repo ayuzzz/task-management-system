@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Project } from '../../../models/project';
-import { project_data } from '../../../../data/project-data';
 import { Router } from '@angular/router';
+import { ProjectService } from '../../../services/project.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'projects-list-utilities',
@@ -18,10 +19,22 @@ export class ProjectsListUtilitiesComponent implements OnInit {
   @Output()
   filterStringChangeEvent = new EventEmitter<string>();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private projectService: ProjectService) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await this.getProjectDetails();
     this.filteredProjects = this.projects;
+  }
+
+  async getProjectDetails() {
+    await lastValueFrom(this.projectService.GetProjects()).then(
+      (data) => {
+        this.projects = data;
+      },
+      (error) => {
+        console.error('Error getting projects: ', error);
+      }
+    );
   }
 
   filterProjects(): void {
@@ -29,7 +42,7 @@ export class ProjectsListUtilitiesComponent implements OnInit {
   }
 
   addNewProject(): void {
-    project_data.forEach((project) => {
+    this.projects.forEach((project) => {
       if (project.id > this.projectId) {
         this.projectId = project.id;
       }
