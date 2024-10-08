@@ -22,12 +22,12 @@ export class ProjectsListUtilitiesComponent implements OnInit {
   constructor(private router: Router, private projectService: ProjectService) {}
 
   async ngOnInit() {
-    await this.getProjectDetails();
+    await this.getProjectDetails(1);
     this.filteredProjects = this.projects;
   }
 
-  async getProjectDetails() {
-    await lastValueFrom(this.projectService.GetProjects()).then(
+  async getProjectDetails(userId: number) {
+    await lastValueFrom(this.projectService.GetProjects(userId)).then(
       (data) => {
         this.projects = data;
       },

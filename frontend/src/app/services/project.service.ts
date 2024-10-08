@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Project, ProjectUserMapping } from '../models/project';
+import { Project, ProjectDetails, ProjectUserMapping } from '../models/project';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,10 @@ export class ProjectService {
 
   private baseUrl = 'https://localhost:5001';
 
-  GetProjects(): Observable<Project[]> {
-    return this.httpClient.get<Project[]>(`${this.baseUrl}/projects`);
+  GetProjects(userId: number): Observable<Project[]> {
+    return this.httpClient.get<Project[]>(
+      `${this.baseUrl}/projects/users/${userId}`
+    );
   }
 
   GetProject(projectId: number): Observable<Project> {
@@ -27,7 +29,7 @@ export class ProjectService {
     );
   }
 
-  UpsertProject(project: Project): Observable<number> {
+  UpsertProject(project: ProjectDetails): Observable<number> {
     return this.httpClient.put<number>(`${this.baseUrl}/projects`, project);
   }
 }

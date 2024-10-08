@@ -30,7 +30,7 @@ export class TaskStatusDialogComponent implements OnInit {
 
   async ngOnInit() {
     forkJoin({
-      tasks: this.taskService.getAllTasks(),
+      tasks: this.taskService.getAllTasks(1),
       statuses: this.statusPriorityService.GetStatusData(),
     }).subscribe(({ tasks, statuses }) => {
       this.taskData = tasks;

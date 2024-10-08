@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router, private tasksService: TaskService) {}
 
   async ngOnInit() {
-    await lastValueFrom(this.tasksService.GetMiniatureTasks()).then((data) => {
+    await lastValueFrom(this.tasksService.GetMiniatureTasks(1)).then((data) => {
       this.taskData = data;
     });
     this.completedTasksCount = this.taskData.filter(

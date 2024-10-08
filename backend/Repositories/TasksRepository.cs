@@ -12,21 +12,21 @@ namespace backend.Repositories
         {
             SqlConnectionFactory = sqlConnectionFactory;
         }
-        public async Task<IEnumerable<TmsTask>> GetAllTasksAsync()
+        public async Task<IEnumerable<TmsTask>> GetAllTasksAsync(int userId)
         {
             using(var connection = SqlConnectionFactory.CreateSqlConnection())
             {
-                string query = "SELECT * FROM Task";
-                return await connection.QueryAsync<TmsTask>(query);
+                string query = "SELECT * FROM Task WHERE UserId = @UserId";
+                return await connection.QueryAsync<TmsTask>(query, new {UserId = userId});
             }
         }
 
-        public async Task<IEnumerable<MiniatureTask>> GetMiniatureTasksAsync()
+        public async Task<IEnumerable<MiniatureTask>> GetMiniatureTasksAsync(int userId)
         {
             using(var connection = SqlConnectionFactory.CreateSqlConnection())
             {
-                string query = @"SELECT t.Id, t.Title, t.DueDate, p.Level as 'Priority', s.Status, pr.Name as Project, u.Id as UserId FROM Task t INNER JOIN Priority p ON p.Id = t.PriorityId INNER JOIN Status s ON s.Id = t.StatusId INNER JOIN Project pr on t.ProjectId = pr.Id INNER JOIN Users u on u.Id = t.UserId;";
-                return await connection.QueryAsync<MiniatureTask>(query);
+                string query = @"SELECT t.Id, t.Title, t.DueDate, p.Level as 'Priority', s.Status, pr.Name as Project, u.Id as UserId FROM Task t INNER JOIN Priority p ON p.Id = t.PriorityId INNER JOIN Status s ON s.Id = t.StatusId INNER JOIN Project pr on t.ProjectId = pr.Id INNER JOIN Users u on u.Id = t.UserId WHERE t.UserId = @UserId;";
+                return await connection.QueryAsync<MiniatureTask>(query, new { UserId = userId });
             }
         }
 
@@ -50,6 +50,7 @@ WHEN MATCHED THEN
     UPDATE SET target.Title = source.Title, target.Description = source.Description, target.DueDate = source.DueDate, target.PriorityId = source.PriorityId, target.StatusId = source.StatusId, target.ProjectId = source.ProjectId 
 WHEN NOT MATCHED THEN
     INSERT (Id, Title, Description, DueDate, PriorityId, StatusId, ProjectId, UserId) VALUES (@Id, @Title, @Description, @DueDate, @PriorityId, @StatusId, @ProjectId, @UserId);";
+
                 return await connection.ExecuteAsync(query, param: task);
             }
         }

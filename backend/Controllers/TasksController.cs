@@ -17,19 +17,19 @@ namespace backend.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "tasks")]
-        [HttpGet("tasks")]
-        public async Task<ActionResult<IEnumerable<TmsTask>>> GetAllTasksAsync()
+        [HttpGet("tasks/users/{userId}")]
+        public async Task<ActionResult<IEnumerable<TmsTask>>> GetAllTasksAsync(int userId)
         {
-            return Ok(await TasksService.GetAllTasksAsync());
+            return Ok(await TasksService.GetAllTasksAsync(userId));
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "tasks")]
-        [HttpGet("miniature-tasks")]
-        public async Task<ActionResult<IEnumerable<MiniatureTask>>> GetMiniatureTasksAsync()
+        [HttpGet("miniature-tasks/users/{userId}")]
+        public async Task<ActionResult<IEnumerable<MiniatureTask>>> GetMiniatureTasksAsync(int userId)
         {
-            return Ok(await TasksService.GetMiniatureTasksAsync());
+            return Ok(await TasksService.GetMiniatureTasksAsync(userId));
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
