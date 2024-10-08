@@ -146,7 +146,15 @@ export class AddEditProjectComponent {
 
   async saveProject() {
     await lastValueFrom(
-      this.projectService.UpsertProject(this.projectForm.value)
+      this.projectService.UpsertProject({
+        id: this.projectId,
+        name: this.projectForm.get('name')?.value,
+        description: this.projectForm.get('description')?.value,
+        dueDate: this.projectForm.get('dueDate')?.value,
+        userId: this.projectDetails.userId,
+        statusId: parseInt(this.projectForm.get('status')?.value),
+        TeamMembers: this.teamMembers,
+      })
     ).then(
       (data) => {
         alert('Project saved successfully');
@@ -155,6 +163,7 @@ export class AddEditProjectComponent {
         console.error('Error saving project: ', error);
       }
     );
+
     console.log(this.projectForm.value);
   }
 }

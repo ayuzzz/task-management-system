@@ -11,14 +11,14 @@ namespace backend.Services
         {
             TasksRepository = tasksRepository ?? throw new ArgumentNullException(nameof(tasksRepository));
         }
-        public async Task<IEnumerable<TmsTask>> GetAllTasksAsync()
+        public async Task<IEnumerable<TmsTask>> GetAllTasksAsync(int userId)
         {
-            return await TasksRepository.GetAllTasksAsync();
+            return await TasksRepository.GetAllTasksAsync(userId);
         }
 
-        public async Task<IEnumerable<MiniatureTask>> GetMiniatureTasksAsync()
+        public async Task<IEnumerable<MiniatureTask>> GetMiniatureTasksAsync(int userId)
         {
-            return await TasksRepository.GetMiniatureTasksAsync();
+            return await TasksRepository.GetMiniatureTasksAsync(userId);
         }
 
         public async Task<TmsTask?> GetTaskDetailsAsync(int taskId)

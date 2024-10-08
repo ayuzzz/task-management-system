@@ -10,9 +10,9 @@ namespace backend.Services
         {
             ProjectRepository = projectRepository;
         }
-        public async Task<IEnumerable<Project>> GetAllProjectsAsync()
+        public async Task<IEnumerable<Project>> GetAllProjectsAsync(int userId)
         {
-            return await ProjectRepository.GetAllProjectsAsync();
+            return await ProjectRepository.GetAllProjectsAsync(userId);
         }
 
         public async Task<Project?> GetProjectDetailsAsync(int projectId)
@@ -25,7 +25,7 @@ namespace backend.Services
             return await ProjectRepository.GetProjectUserMappingsAsync();
         }
 
-        public async Task<int> UpsertProjectAsync(Project project)
+        public async Task<int> UpsertProjectAsync(ProjectDetails project)
         {
             return await ProjectRepository.UpsertProjectAsync(project);
         }

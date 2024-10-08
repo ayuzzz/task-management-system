@@ -7,6 +7,16 @@ export interface Project {
   statusId: number;
 }
 
+export interface ProjectDetails {
+  id: number;
+  name: string;
+  description: string;
+  dueDate: string;
+  userId: number;
+  statusId: number;
+  TeamMembers: number[];
+}
+
 export interface ProjectUserMapping {
   id: number;
   projectId: number;

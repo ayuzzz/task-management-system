@@ -55,7 +55,7 @@ export class AddEditTaskComponent implements OnInit {
 
   async ngOnInit() {
     await this.getTaskDetails();
-    this.projectService.GetProjects().subscribe(
+    this.projectService.GetProjects(1).subscribe(
       (data) => {
         this.projects = data;
       },
@@ -98,17 +98,17 @@ export class AddEditTaskComponent implements OnInit {
     this.taskService.CreateNewTask(this.taskDetails).subscribe(
       (data) => {
         insertedTaskId = data;
+
+        if (insertedTaskId > 0) {
+          alert('Task saved successfully');
+        } else {
+          alert('Could not save the task !');
+        }
       },
       (error) => {
         console.error('Error saving task: ', error);
       }
     );
-
-    if (insertedTaskId > 0) {
-      alert('Task saved successfully');
-    } else {
-      alert('Could not save the task !');
-    }
 
     console.log(this.taskDetails);
   }

@@ -49,9 +49,9 @@ export class ProjectsPageComponent implements OnInit {
 
     [projectsData, projectUserMappings, taskData] = await lastValueFrom(
       forkJoin([
-        this.projectService.GetProjects(),
+        this.projectService.GetProjects(1),
         this.projectService.GetProjectUserMappings(),
-        this.taskService.getAllTasks(),
+        this.taskService.getAllTasks(1),
       ])
     );
 

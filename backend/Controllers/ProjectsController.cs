@@ -17,10 +17,10 @@ namespace backend.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "projects")]
-        [HttpGet("projects")]
-        public async Task<ActionResult<IEnumerable<Project>>> GetAllProjectsAsync()
+        [HttpGet("projects/users/{userId}")]
+        public async Task<ActionResult<IEnumerable<Project>>> GetAllProjectsAsync(int userId)
         {
-            return Ok(await ProjectService.GetAllProjectsAsync());
+            return Ok(await ProjectService.GetAllProjectsAsync(userId));
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -45,9 +45,8 @@ namespace backend.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "projects")]
         [HttpPut("projects")]
-        public async Task<ActionResult<int>> UpsertProjectDetailsAsync(Project project)
+        public async Task<ActionResult<int>> UpsertProjectDetailsAsync(ProjectDetails project)
         {
-            //@TODO: Handling of ProjectUserMapping needs to be implemented
             return Ok(await ProjectService.UpsertProjectAsync(project));
         }
     }

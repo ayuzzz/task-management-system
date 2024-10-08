@@ -11,13 +11,13 @@ export class TaskService {
 
   private baseUrl = 'https://localhost:5001';
 
-  getAllTasks(): Observable<Task[]> {
-    return this.httpClient.get<Task[]>(`${this.baseUrl}/tasks`);
+  getAllTasks(userId: number): Observable<Task[]> {
+    return this.httpClient.get<Task[]>(`${this.baseUrl}/tasks/users/${userId}`);
   }
 
-  GetMiniatureTasks(): Observable<MiniatureTask[]> {
+  GetMiniatureTasks(userId: number): Observable<MiniatureTask[]> {
     return this.httpClient.get<MiniatureTask[]>(
-      `${this.baseUrl}/miniature-tasks`
+      `${this.baseUrl}/miniature-tasks/users/${userId}`
     );
   }
 
