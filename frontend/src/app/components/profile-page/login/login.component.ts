@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { UserService } from './../../../services/user.service';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
@@ -6,14 +7,19 @@ import { AuthService } from '@auth0/auth0-angular';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   email: string = '';
   name: string = '';
   password: string = '';
   profileImageUrl: string = '';
   isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
+
+  async ngOnInit() {
     this.authService.user$.subscribe((user) => {
       if (user) {
         this.email = user.email ?? 'NA';
@@ -22,10 +28,20 @@ export class LoginComponent {
           user.picture ??
           'https://www.pngall.com/wp-content/uploads/5/Profile-Male-Transparent.png';
       }
-    });
 
-    this.authService.isAuthenticated$.subscribe((autheticationStatus) => {
-      this.isLoggedIn = autheticationStatus;
+      this.userService
+        .SaveUserDetails({ id: 0, name: this.name, email: this.email })
+        .subscribe((data) => {
+          console.log(
+            `User details : { id -> ${0}, name -> ${this.name}, email -> ${
+              this.email
+            }`
+          );
+        });
+
+      this.authService.isAuthenticated$.subscribe((autheticationStatus) => {
+        this.isLoggedIn = autheticationStatus;
+      });
     });
   }
 

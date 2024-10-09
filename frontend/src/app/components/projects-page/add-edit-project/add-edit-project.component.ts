@@ -1,7 +1,6 @@
 import { StatusPriorityService } from './../../../services/status-priority.service';
 import { lastValueFrom } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { user_data } from './../../../../data/user-data';
 import { Component } from '@angular/core';
 import {
   Project,
@@ -12,6 +11,8 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../services/project.service';
 import { Status } from '../../../models/status';
+import { User } from '../../../models/user';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-add-edit-project',
@@ -27,13 +28,14 @@ export class AddEditProjectComponent {
   taskDetails: any;
   taskForm: any;
   teamMembers: number[] = [];
-  userData = user_data;
+  userData: User[] = [];
   statuses: Status[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private projectService: ProjectService,
-    private statusPriorityService: StatusPriorityService
+    private statusPriorityService: StatusPriorityService,
+    private userService: UserService
   ) {
     this.projectId = parseInt(
       this.activatedRoute.snapshot.params['projectId'] ?? 0
@@ -75,8 +77,10 @@ export class AddEditProjectComponent {
         console.error('Error getting status data: ', error);
       }
     );
+
     await this.GetProjectDetails();
     await this.GetProjectUserMappings();
+    await this.GetUserDetails();
 
     this.projectDisplayDetails = {
       id: this.projectId,
@@ -90,7 +94,7 @@ export class AddEditProjectComponent {
       teamMembers: this.projectUserMappings
         .filter((mapping) => mapping.projectId === this.projectId)
         .map((mapping) => {
-          let user = user_data.find((user) => user.id === mapping.userId);
+          let user = this.userData.find((user) => user.id === mapping.userId);
           return {
             id: mapping?.userId,
             name: user?.name,
@@ -120,6 +124,17 @@ export class AddEditProjectComponent {
         this.teamMembers = value.map((member) => parseInt(member));
         console.log('Updated Team Members:', this.teamMembers);
       });
+  }
+
+  async GetUserDetails() {
+    await lastValueFrom(this.userService.GetAllUsers()).then(
+      (data) => {
+        this.userData = data;
+      },
+      (error) => {
+        console.error('Error getting user data: ', error);
+      }
+    );
   }
 
   async GetProjectDetails() {

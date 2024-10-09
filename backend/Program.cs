@@ -46,6 +46,12 @@ builder.Services.AddSwaggerGen(option =>
         Title = "Status & Priority API",
         Description = "API for managing status-priority"
     });
+    option.SwaggerDoc("users", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Users API",
+        Description = "API for managing User data"
+    });
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -84,6 +90,8 @@ builder.Services.AddSingleton<IProjectService, ProjectService>();
 builder.Services.AddSingleton<IProjectRepository, ProjectRepository>();
 builder.Services.AddSingleton<IStatusPriorityService, StatusPriorityService>();
 builder.Services.AddSingleton<IStatusPriorityRepository, StatusPriorityRepository>();
+builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
 builder.Services.AddCors(options => options.AddPolicy("AllowLocalHostAngular",
     builder =>
@@ -109,6 +117,7 @@ if (app.Environment.IsDevelopment())
         option.SwaggerEndpoint("/swagger/tasks/swagger.json", "Task APIs");
         option.SwaggerEndpoint("/swagger/projects/swagger.json", "Project APIs");
         option.SwaggerEndpoint("/swagger/status-priority/swagger.json", "Status & Priority APIs");
+        option.SwaggerEndpoint("/swagger/users/swagger.json", "Users APIs");
         option.RoutePrefix = string.Empty;
     });
 }

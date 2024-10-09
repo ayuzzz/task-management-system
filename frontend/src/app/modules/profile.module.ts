@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './shared.module';
@@ -14,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     RouterModule.forChild(profileRoutes),
     ReactiveFormsModule,
+    HttpClientModule,
   ],
 })
 export class ProfileModule {}
