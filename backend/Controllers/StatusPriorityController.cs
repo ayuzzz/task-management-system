@@ -1,5 +1,6 @@
 ﻿using backend.Models.Status_Priority;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 
@@ -14,6 +15,7 @@ namespace backend.Controllers
             StatusPriorityService = statusPriorityService;
         }
 
+        [Authorize(Policy = "RequireValidToken")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "status-priority")]
@@ -23,6 +25,7 @@ namespace backend.Controllers
             return Ok(await StatusPriorityService.GetStatusesAsync());
         }
 
+        [Authorize(Policy = "RequireValidToken")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "status-priority")]

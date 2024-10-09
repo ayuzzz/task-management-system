@@ -1,5 +1,6 @@
 ﻿using backend.Models.Projects;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 
@@ -14,6 +15,7 @@ namespace backend.Controllers
             ProjectService = projectService;
         }
 
+        [Authorize(Policy = "RequireValidToken")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "projects")]
@@ -23,6 +25,7 @@ namespace backend.Controllers
             return Ok(await ProjectService.GetAllProjectsAsync(userId));
         }
 
+        [Authorize(Policy = "RequireValidToken")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "projects")]
@@ -32,6 +35,7 @@ namespace backend.Controllers
             return Ok(await ProjectService.GetProjectDetailsAsync(projectId));
         }
 
+        [Authorize(Policy = "RequireValidToken")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "projects")]
@@ -41,6 +45,7 @@ namespace backend.Controllers
             return Ok(await ProjectService.GetProjectUserMappingsAsync());
         }
 
+        [Authorize(Policy = "RequireValidToken")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "projects")]
