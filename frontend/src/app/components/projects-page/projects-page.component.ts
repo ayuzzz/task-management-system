@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { StatusPriorityService } from './../../services/status-priority.service';
 import { forkJoin, lastValueFrom } from 'rxjs';
 import { ProjectService } from './../../services/project.service';
@@ -10,8 +11,8 @@ import {
 } from './../../models/project';
 import { Status } from './../../models/status';
 import { Component, OnInit } from '@angular/core';
-import { user_data } from '../../../data/user-data';
 import { Task } from '../../models/task';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-projects-page',
@@ -28,14 +29,15 @@ export class ProjectsPageComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private projectService: ProjectService,
-    private statusPriorityService: StatusPriorityService
+    private statusPriorityService: StatusPriorityService,
+    private userService: UserService
   ) {}
 
   async ngOnInit() {
     let projectsData: Project[];
     let projectUserMappings: ProjectUserMapping[];
     let statusData: Status[] = [];
-    let userData = user_data;
+    let userData: User[] = [];
     let taskData: Task[];
 
     this.statusPriorityService.GetStatusData().subscribe(
@@ -47,13 +49,15 @@ export class ProjectsPageComponent implements OnInit {
       }
     );
 
-    [projectsData, projectUserMappings, taskData] = await lastValueFrom(
-      forkJoin([
-        this.projectService.GetProjects(1),
-        this.projectService.GetProjectUserMappings(),
-        this.taskService.getAllTasks(1),
-      ])
-    );
+    [projectsData, projectUserMappings, taskData, userData] =
+      await lastValueFrom(
+        forkJoin([
+          this.projectService.GetProjects(1),
+          this.projectService.GetProjectUserMappings(),
+          this.taskService.getAllTasks(1),
+          this.userService.GetAllUsers(),
+        ])
+      );
 
     this.projects = projectsData.map((project) => {
       return {

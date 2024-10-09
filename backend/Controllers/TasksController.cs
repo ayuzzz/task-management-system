@@ -1,5 +1,6 @@
 using backend.Models.Tasks;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 
@@ -14,6 +15,7 @@ namespace backend.Controllers
             TasksService = tasksService ?? throw new ArgumentNullException(nameof(tasksService));
         }
 
+        [Authorize(Policy = "RequireValidToken")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "tasks")]
@@ -23,6 +25,7 @@ namespace backend.Controllers
             return Ok(await TasksService.GetAllTasksAsync(userId));
         }
 
+        [Authorize(Policy = "RequireValidToken")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "tasks")]
@@ -32,6 +35,7 @@ namespace backend.Controllers
             return Ok(await TasksService.GetMiniatureTasksAsync(userId));
         }
 
+        [Authorize(Policy = "RequireValidToken")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "tasks")]
@@ -41,6 +45,7 @@ namespace backend.Controllers
             return Ok(await TasksService.GetTaskDetailsAsync(taskId));
         }
 
+        [Authorize(Policy = "RequireValidToken")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "tasks")]
@@ -50,6 +55,7 @@ namespace backend.Controllers
             return Ok(await TasksService.DeleteTaskAsync(taskId));
         }
 
+        [Authorize(Policy = "RequireValidToken")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces(MediaTypeNames.Application.Json)]
         [ApiExplorerSettings(GroupName = "tasks")]
